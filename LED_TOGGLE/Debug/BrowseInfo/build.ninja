@@ -1,0 +1,41 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out
+
+rule MAKEBROWSE
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out
+
+rule PDBLINK
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out
+
+
+
+#Build steps
+build D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file "D$:\ARM$ Projects\LED_TOGGLE\main.c" -xcl_file "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.xcl" -macro_file "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = "D$:\ARM$ Projects\LED_TOGGLE\main.c" -o "D$:\ARM$ Projects\LED_TOGGLE\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=ARM7TDMI-S -e --fpu=None --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\inc\c\DLib_Config_Normal.h" --cpu_mode thumb -Ol --predef_macros "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.tmp"
+  rspfile_name = D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.xcl.rsp
+
+build D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.pbi : INDEXER D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.xcl |  $
+D$:\ARM$ Projects\LED_TOGGLE\main.c
+  flags = "-out=D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.pbi" -f "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.xcl"
+
+build D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbw : MAKEBROWSE D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbd
+  flags = "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbd" -output "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbw"
+
+build D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbd : PDBLINK D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.pbi
+  flags = -M "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\Toggle.pbd" "D$:\ARM$ Projects\LED_TOGGLE\Debug\BrowseInfo\main.pbi"
+

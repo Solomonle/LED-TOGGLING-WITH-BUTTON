@@ -1,0 +1,215 @@
+###############################################################################
+#
+# IAR ELF Linker V9.32.2.340/W64 for ARM                  23/May/2023  23:13:37
+# Copyright 2007-2023 IAR Systems AB.
+#
+#    Output file  =
+#        D:\ARM Projects\Toggle With Button\Debug\Exe\Toggle.out_nochecksum
+#    Map file     =  D:\ARM Projects\Toggle With Button\Debug\List\Toggle.map
+#    Command line =
+#        -f "D:\ARM Projects\Toggle With
+#        Button\Debug\Exe\Toggle.out_nochecksum.rsp" ("D:\ARM Projects\Toggle
+#        With Button\Debug\Obj\main.o" --no_out_extension -o "D:\ARM
+#        Projects\Toggle With Button\Debug\Exe\Toggle.out_nochecksum"
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map "D:\ARM Projects\Toggle With Button\Debug\List\Toggle.map"
+#        --config "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\arm/config/linker/NXP/LPC2124.icf" --semihosting --entry
+#        __iar_program_start --vfe --text_out locale --cpu=ARM7TDMI-S
+#        --fpu=None)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x0 { ro section .intvec };
+"P1":  place in [from 0x0 to 0x1fb] |
+                [from 0x200 to 0x3'ffff] { ro };
+define block CSTACK with size = 2K, alignment = 8 { };
+define block SVC_STACK with size = 16, alignment = 8 { };
+define block IRQ_STACK with size = 80, alignment = 8 { };
+define block FIQ_STACK with size = 16, alignment = 8 { };
+define block UND_STACK with size = 16, alignment = 8 { };
+define block ABT_STACK with size = 16, alignment = 8 { };
+define block HEAP with size = 4K, alignment = 8 { };
+"P2":  place in [from 0x4000'0000 to 0x4000'003f] |
+                [from 0x4000'0120 to 0x4000'3fdf] {
+          rw, block CSTACK, block SVC_STACK, block IRQ_STACK, block FIQ_STACK,
+          block UND_STACK, block ABT_STACK, block HEAP };
+
+No sections matched the following patterns:
+
+  rw            in "P2"
+  section .crp  in "P3"
+
+
+  Section      Kind         Address   Size  Object
+  -------      ----         -------   ----  ------
+"A0":                                 0x40
+  .intvec      ro code          0x0   0x40  cstartup.o [3]
+                             - 0x40   0x40
+
+"P1", part 1 of 2:                   0x112
+  .text        ro code         0x40   0x9c  main.o [1]
+  .text        ro code         0xdc   0x58  cstartup.o [3]
+  .text        ro code        0x134    0x4  low_level_init.o [2]
+  Veneer       ro code        0x138   0x10  - Linker created -
+  .text        ro code        0x148    0xa  exit.o [2]
+                            - 0x152  0x112
+
+"P1", part 2 of 2:                    0x8c
+  Veneer       ro code        0x200    0xc  - Linker created -
+  Veneer       ro code        0x20c    0xc  - Linker created -
+  Veneer       ro code        0x218    0xc  - Linker created -
+  .text        ro code        0x224   0x30  cmain.o [3]
+  .text        ro code        0x254   0x20  exit.o [4]
+  .text        ro code        0x274   0x10  cexit.o [3]
+  .text        ro code        0x284    0x4  vectortrap.o [3]
+  .text        ro code        0x288    0x4  xreturnswi.o [4]
+                            - 0x28c   0x8c
+
+"P2":                                0x860
+  CSTACK                0x4000'0120  0x800  <Block>
+    CSTACK     uninit   0x4000'0120  0x800  <Block tail>
+  IRQ_STACK             0x4000'0920   0x50  <Block>
+    IRQ_STACK  uninit   0x4000'0920   0x50  <Block tail>
+  FIQ_STACK             0x4000'0970   0x10  <Block>
+    FIQ_STACK  uninit   0x4000'0970   0x10  <Block tail>
+                      - 0x4000'0980  0x860
+
+Absolute sections, part 1 of 2:       0x10
+  .noinit      uninit   0xe002'8000    0x4  main.o [1]
+  .noinit      uninit   0xe002'8004    0x4  main.o [1]
+  .noinit      uninit   0xe002'8008    0x4  main.o [1]
+  .noinit      uninit   0xe002'800c    0x4  main.o [1]
+                      - 0xe002'8010   0x10
+
+Absolute sections, part 2 of 2:        0x4
+  .noinit      uninit   0xe002'c000    0x4  main.o [1]
+                      - 0xe002'c004    0x4
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+        0x152        0x1fb      0xaa
+        0x28c     0x3'ffff  0x3'fd74
+  0x4000'0000  0x4000'003f      0x40
+  0x4000'0980  0x4000'3fdf    0x3660
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module            ro code  rw data  rw data
+                                         (abs)
+    ------            -------  -------  -------
+command line/config:
+    -------------------------------------------
+    Total:
+
+D:\ARM Projects\Toggle With Button\Debug\Obj: [1]
+    main.o                156                20
+    -------------------------------------------
+    Total:                156                20
+
+dl4t_tln.a: [2]
+    exit.o                 10
+    low_level_init.o        4
+    -------------------------------------------
+    Total:                 14
+
+rt4t_al.a: [3]
+    cexit.o                16
+    cmain.o                48
+    cstartup.o            152
+    vectortrap.o            4
+    -------------------------------------------
+    Total:                220
+
+shs_l.a: [4]
+    exit.o                 32
+    xreturnswi.o            4
+    -------------------------------------------
+    Total:                 36
+
+    Linker created         52    2'144
+-----------------------------------------------
+    Grand Total:          478    2'144       20
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address  Size  Type      Object
+-----                      -------  ----  ----      ------
+?main                        0x224        Code  Gb  cmain.o [3]
+Abort_Handler                0x284        Code  Wk  vectortrap.o [3]
+CSTACK$$Base           0x4000'0120         --   Gb  - Linker created -
+CSTACK$$Limit          0x4000'0920         --   Gb  - Linker created -
+FIQ_Handler                  0x284        Code  Wk  vectortrap.o [3]
+FIQ_STACK$$Base        0x4000'0970         --   Gb  - Linker created -
+FIQ_STACK$$Limit       0x4000'0980         --   Gb  - Linker created -
+Hyp_Handler                  0x284        Code  Wk  vectortrap.o [3]
+IRQ_Handler                  0x284        Code  Wk  vectortrap.o [3]
+IRQ_STACK$$Base        0x4000'0920         --   Gb  - Linker created -
+IRQ_STACK$$Limit       0x4000'0970         --   Gb  - Linker created -
+Prefetch_Handler             0x284        Code  Wk  vectortrap.o [3]
+Region$$Table$$Base            0x0         --   Gb  - Linker created -
+Region$$Table$$Limit           0x0         --   Gb  - Linker created -
+SWI_Handler                  0x284        Code  Wk  vectortrap.o [3]
+Undefined_Handler            0x284        Code  Wk  vectortrap.o [3]
+_A_IO0CLR              0xe002'800c   0x4  Data  Wk  main.o [1]
+_A_IO0DIR              0xe002'8008   0x4  Data  Wk  main.o [1]
+_A_IO0PIN              0xe002'8000   0x4  Data  Wk  main.o [1]
+_A_IO0SET              0xe002'8004   0x4  Data  Wk  main.o [1]
+_A_PINSEL0             0xe002'c000   0x4  Data  Wk  main.o [1]
+__cmain                      0x224        Code  Gb  cmain.o [3]
+__exit                       0x254  0x20  Code  Gb  exit.o [4]
+__iar_program_start           0xdc        Code  Gb  cstartup.o [3]
+__iar_return_from_swi        0x288   0x4  Code  Gb  xreturnswi.o [4]
+__low_level_init             0x135   0x4  Code  Gb  low_level_init.o [2]
+__vector                       0x0        Data  Gb  cstartup.o [3]
+_call_main                   0x23c        Code  Gb  cmain.o [3]
+_exit                        0x274        Code  Gb  cexit.o [3]
+delay                         0x5f  0x12  Code  Gb  main.o [1]
+exit                         0x149   0xa  Code  Gb  exit.o [2]
+init_gpio                     0x71  0x26  Code  Gb  main.o [1]
+main                          0x41  0x1e  Code  Gb  main.o [1]
+toggle                        0x97  0x24  Code  Gb  main.o [1]
+
+
+[1] = D:\ARM Projects\Toggle With Button\Debug\Obj
+[2] = dl4t_tln.a
+[3] = rt4t_al.a
+[4] = shs_l.a
+
+    478 bytes of readonly  code memory
+  2'144 bytes of readwrite data memory (+ 20 absolute)
+
+Errors: none
+Warnings: none
